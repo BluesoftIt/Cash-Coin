@@ -52,7 +52,7 @@ public class ResultActivity extends AppCompatActivity {
                 Intent share = new Intent(Intent.ACTION_SEND);
                 share.setType("text/plain");
                 String body = "Hey Iam using Play Cash app for earning extra money. If you want to earn money via playing quiz & watching ads then download using following link: https://play.google.com/store/apps/details?id=com.bluesoftit.playcash";
-                String sub = "https://play.google.com/store/apps/details?id=com.bluesoftit.playcash";
+                String sub = "https://play.google.com/store/apps/details?id=com.bluesoftit.cashcoin";
                 share.putExtra(Intent.EXTRA_SUBJECT,sub);
                 share.putExtra(Intent.EXTRA_TEXT,body);
                 startActivity(Intent.createChooser(share, "Share Using"));

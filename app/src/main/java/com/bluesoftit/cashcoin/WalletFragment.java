@@ -50,14 +50,13 @@ public class WalletFragment extends Fragment {
         showInterstitialAd();
 
         getCoinData();
-        final String WithdrawMethode = binding.withdrawMethode.getText().toString();
+        String WithdrawMethode = binding.withdrawMethode.getText().toString();
 
         binding.sendRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
-                    if(user.getCoins() > 10) {
+                  if(user.getCoins() > 5000) {
                         final String uid = FirebaseAuth.getInstance().getUid();
                         String withdrawMethode = binding.withdrawMethode.getText().toString();
 
