@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.bluesoftit.cashcoin.databinding.ActivityMainBinding;
 import com.google.android.gms.ads.AdRequest;
@@ -30,11 +29,6 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 
 import me.ibrahimsn.lib.OnItemSelectedListener;
@@ -44,10 +38,7 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     String TAG = "myTag";
     InterstitialAd interstitialAd;
-    InterstitialAd admobLocal;
     FirebaseAuth auth;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
     private long backPressedTime;
     Toast backToast;
 
@@ -65,10 +56,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference= firebaseDatabase.getReference("instruction");
         showInterstitialAd();
-        showAdmobLocalAd();
 
         //Initialize Connectivity ---------->>>>>>
         ConnectivityManager connectivityManager = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -127,8 +115,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.wallet) {
             dialogInstruction();
-            if (admobLocal != null) {
-                admobLocal.show(MainActivity.this);
+            if (interstitialAd != null) {
+                interstitialAd.show(MainActivity.this);
             }
         }
         return super.onOptionsItemSelected(item);
@@ -142,19 +130,6 @@ public class MainActivity extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
 
-        TextView instructionDialog = dialog.findViewById(R.id.instruction);
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String instruction = snapshot.getValue(String.class);
-                instructionDialog.setText(instruction);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
         Button closeBTN = dialog.findViewById(R.id.closeBtn);
         closeBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,27 +155,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         dialog.show();
-    }
-    private void showAdmobLocalAd(){
-        AdRequest adRequest = new AdRequest.Builder().build();
-
-        InterstitialAd.load(MainActivity.this,getString(R.string.admob_local), adRequest,
-                new InterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(@NonNull InterstitialAd mInterstitialAd) {
-                        // The mInterstitialAd reference will be null until
-                        // an ad is loaded.
-                        admobLocal = mInterstitialAd;
-
-                    }
-
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        // Handle the error
-                        Log.d(TAG, loadAdError.toString());
-                        admobLocal = null;
-                    }
-                });
     }
    private void showInterstitialAd(){
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -230,9 +184,9 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
             return;
         }else {
-            if (admobLocal!=null){
-                admobLocal.show(MainActivity.this);
-                admobLocal.setFullScreenContentCallback(new FullScreenContentCallback() {
+            if (interstitialAd!=null){
+                interstitialAd.show(MainActivity.this);
+                interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                     @Override
                     public void onAdDismissedFullScreenContent() {
                         super.onAdDismissedFullScreenContent();

@@ -38,7 +38,7 @@ public class WalletFragment extends Fragment {
     FirebaseFirestore database;
     User user;
     String TAG = "myTag";
-    InterstitialAd admobLocal;
+    InterstitialAd interstitialAd;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,16 +47,17 @@ public class WalletFragment extends Fragment {
         binding = FragmentWalletBinding.inflate(inflater, container, false);
         database = FirebaseFirestore.getInstance();
 
-        showAdmobLocalAd();
+        showInterstitialAd();
 
         getCoinData();
-        String WithdrawMethode = binding.withdrawMethode.getText().toString();
+        final String WithdrawMethode = binding.withdrawMethode.getText().toString();
 
         binding.sendRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                  if(user.getCoins() > 5000) {
+
+                    if(user.getCoins() > 10) {
                         final String uid = FirebaseAuth.getInstance().getUid();
                         String withdrawMethode = binding.withdrawMethode.getText().toString();
 
@@ -72,7 +73,7 @@ public class WalletFragment extends Fragment {
                                         .update("coins", FieldValue.increment(-user.getCoins()));
                                 Toast.makeText(getContext(), "Your withdraw request is pending now. You recive your payment in 3 working days.", Toast.LENGTH_SHORT).show();
                                 getCoinData();
-                                if (admobLocal!=null){admobLocal.show(getActivity());}
+                                if (interstitialAd!=null){interstitialAd.show(getActivity());}
                             }
                         });
 
@@ -102,16 +103,16 @@ public class WalletFragment extends Fragment {
             }
         });
     }
-    private void showAdmobLocalAd(){
+    private void showInterstitialAd(){
         AdRequest adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(requireContext(),getString(R.string.admob_local), adRequest,
+        InterstitialAd.load(requireContext(),getString(R.string.admob_interstitial), adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd mInterstitialAd) {
                         // The mInterstitialAd reference will be null until
                         // an ad is loaded.
-                        admobLocal = mInterstitialAd;
+                        interstitialAd = mInterstitialAd;
 
                     }
 
@@ -119,7 +120,7 @@ public class WalletFragment extends Fragment {
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                         // Handle the error
                         Log.d(TAG, loadAdError.toString());
-                        admobLocal = null;
+                        interstitialAd = null;
                     }
                 });
     }

@@ -5,13 +5,13 @@
     <string name="update_profile">Update Profile</string>
 
     <!--- Google Admob -->
-    <string name="admob_app_id">ca-app-pub-6130606896503360~6549299501</string>
-    <string name="admob_rewards">ca-app-pub-6130606896503360/1485579049</string>
+    <string name="admob_app_id">ca-app-pub-1397577307032558~5962560856</string>
+    <string name="admob_rewards">ca-app-pub-1397577307032558/6700927451</string>
     <string name="admob_rewards_test">ca-app-pub-3940256099942544/5354046379</string>
-    <string name="admob_interstitial">ca-app-pub-6130606896503360/9880193942</string>
-    <string name="admob_interstitial2">ca-app-pub-6130606896503360/2609020651</string>
+    <string name="admob_interstitial">ca-app-pub-1397577307032558/1945625926</string>
+    <string name="admob_local">ca-app-pub-1397577307032558/3228037564</string>
+    <string name="admob_interstitial2">ca-app-pub-1397577307032558/3459686446</string>
     <string name="admob_interstitial_test">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="admob_banner">ca-app-pub-6130606896503360/7891205290</string>
 
     <string name="onSignalAppId">a6bdf66c-7205-4ee3-a5e5-6c671c2ae544</string>
 
