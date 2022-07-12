@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_orang"
-    tools:context="com.bluesoftit.cashcoin.SpinnerActivity">
+    tools:context="com.bluesoftit.cashcoin.Activity.SpinnerActivity">
 
     <ImageView
         android:id="@+id/imageView8"

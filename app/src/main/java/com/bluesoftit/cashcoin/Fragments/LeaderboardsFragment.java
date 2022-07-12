@@ -1,4 +1,4 @@
-package com.bluesoftit.cashcoin;
+package com.bluesoftit.cashcoin.Fragments;
 
 import android.os.Bundle;
 
@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bluesoftit.cashcoin.Adapters.LeaderboardsAdapter;
+import com.bluesoftit.cashcoin.Models.User;
 import com.bluesoftit.cashcoin.databinding.FragmentLeaderboardsBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;

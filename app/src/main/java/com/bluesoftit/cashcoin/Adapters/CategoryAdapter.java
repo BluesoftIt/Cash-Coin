@@ -1,9 +1,8 @@
-package com.bluesoftit.cashcoin;
+package com.bluesoftit.cashcoin.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bluesoftit.cashcoin.Models.CategoryModel;
+import com.bluesoftit.cashcoin.Activity.QuizActivity;
 import com.bumptech.glide.Glide;
 import com.bluesoftit.cashcoin.R;
 import com.google.android.gms.ads.AdError;
@@ -25,7 +26,6 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 

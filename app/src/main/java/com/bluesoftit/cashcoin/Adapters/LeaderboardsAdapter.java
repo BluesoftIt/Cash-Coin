@@ -1,4 +1,4 @@
-package com.bluesoftit.cashcoin;
+package com.bluesoftit.cashcoin.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bluesoftit.cashcoin.Models.User;
 import com.bumptech.glide.Glide;
 import com.bluesoftit.cashcoin.R;
 import com.bluesoftit.cashcoin.databinding.RowLeaderboardsBinding;

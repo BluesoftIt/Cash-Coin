@@ -1,4 +1,4 @@
-package com.bluesoftit.cashcoin;
+package com.bluesoftit.cashcoin.Models;
 
 public class CategoryModel {
     private String categoryId, categoryName, categoryImage;

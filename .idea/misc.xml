@@ -13,10 +13,12 @@
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/drawable/button_3.xml" value="0.1565" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/drawable/button_4.xml" value="0.1565" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/drawable/edit_txt_bg.xml" value="0.1555" />
+        <entry key="..\:/Source Code/Cash Coin/app/src/main/res/drawable/ic_ads.xml" value="0.1565" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/drawable/ic_baseline_home_30.xml" value="0.1565" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/drawable/ic_baseline_login_30.xml" value="0.1565" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/drawable/ic_no_wifi.xml" value="0.1565" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/drawable/ic_share.xml" value="0.1565" />
+        <entry key="..\:/Source Code/Cash Coin/app/src/main/res/drawable/ic_shop.xml" value="0.13" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/drawable/ic_trophy.xml" value="0.1565" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/drawable/ic_trophy_ico.xml" value="0.1565" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/drawable/ic_user.xml" value="0.165" />
@@ -31,13 +33,16 @@
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/activity_main.xml" value="0.18125" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/activity_quiz.xml" value="0.18125" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/activity_result.xml" value="0.18125" />
-        <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/activity_signup.xml" value="0.33" />
+        <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/activity_signup.xml" value="0.22" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/activity_splash.xml" value="0.18125" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/dialog_instrution.xml" value="0.25" />
+        <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/digital_store.xml" value="0.22" />
+        <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/ds_cat_item.xml" value="0.22" />
+        <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/ds_categories.xml" value="0.25" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/fragment_leaderboards.xml" value="0.18125" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/fragment_profile.xml" value="0.18125" />
-        <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/fragment_wallet.xml" value="0.33" />
+        <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/fragment_wallet.xml" value="0.2318982387475538" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/item_category.xml" value="0.25" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/no_internet.xml" value="0.22" />
         <entry key="..\:/Source Code/Cash Coin/app/src/main/res/layout/row_leaderboards.xml" value="0.18125" />

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/box_bg"
-    tools:context="com.bluesoftit.cashcoin.MainActivity">
+    tools:context="com.bluesoftit.cashcoin.Activity.MainActivity">
 
     <View
         android:id="@+id/view2"

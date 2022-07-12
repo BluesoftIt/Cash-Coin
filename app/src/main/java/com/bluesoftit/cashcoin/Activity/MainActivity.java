@@ -1,4 +1,4 @@
-package com.bluesoftit.cashcoin;
+package com.bluesoftit.cashcoin.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +20,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bluesoftit.cashcoin.Fragments.HomeFragment;
+import com.bluesoftit.cashcoin.Fragments.LeaderboardsFragment;
+import com.bluesoftit.cashcoin.Fragments.WalletFragment;
+import com.bluesoftit.cashcoin.R;
 import com.bluesoftit.cashcoin.databinding.ActivityMainBinding;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
@@ -126,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.wallet) {
-            dialogInstruction();
+            startActivity(new Intent(getApplicationContext(),DigitalStore.class));
             if (admobLocal != null) {
                 admobLocal.show(MainActivity.this);
             }

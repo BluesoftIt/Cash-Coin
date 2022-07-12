@@ -1,4 +1,4 @@
-package com.bluesoftit.cashcoin;
+package com.bluesoftit.cashcoin.Models;
 
 public class Question {
     private String question, option1, option2, option3, option4, answer;

@@ -1,4 +1,4 @@
-package com.bluesoftit.cashcoin;
+package com.bluesoftit.cashcoin.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

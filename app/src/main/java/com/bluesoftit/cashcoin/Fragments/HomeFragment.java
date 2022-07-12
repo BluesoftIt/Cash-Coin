@@ -1,6 +1,7 @@
-package com.bluesoftit.cashcoin;
+package com.bluesoftit.cashcoin.Fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bluesoftit.cashcoin.Adapters.CategoryAdapter;
+import com.bluesoftit.cashcoin.Models.CategoryModel;
+import com.bluesoftit.cashcoin.R;
+import com.bluesoftit.cashcoin.Activity.SpinnerActivity;
 import com.bluesoftit.cashcoin.databinding.FragmentHomeBinding;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
@@ -27,11 +32,15 @@ import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAdLoadCallback;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
@@ -63,6 +72,9 @@ public class HomeFragment extends Fragment implements OnUserEarnedRewardListener
     DatabaseReference databaseReference;
     InterstitialAd interstitialAd;
     String TAG = "my tag";
+    String companyLink = "https://bluesoftit.blogspot.com/?invitedby=";
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    Uri mInvitationUrl;
 
 
     @Override
@@ -126,14 +138,7 @@ public class HomeFragment extends Fragment implements OnUserEarnedRewardListener
         binding.textView12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (interstitialAd!=null){interstitialAd.show(getActivity());}
-                Intent share = new Intent(Intent.ACTION_SEND);
-                share.setType("text/plain");
-                String body = "Hey Iam using Play Cash app for earning extra money. If you want to earn money via playing quiz & watching ads then download using following link: https://play.google.com/store/apps/details?id=com.bluesoftit.playcash";
-                String sub = "https://play.google.com/store/apps/details?id=com.bluesoftit.cashcoin";
-                share.putExtra(Intent.EXTRA_SUBJECT,sub);
-                share.putExtra(Intent.EXTRA_TEXT,body);
-                startActivity(Intent.createChooser(share, "Share Using"));
+                generateReferLink();
             }
         });
 
@@ -195,6 +200,40 @@ public class HomeFragment extends Fragment implements OnUserEarnedRewardListener
                         Toast.makeText(getContext(), "No ads available right now!", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void generateReferLink(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        String link = companyLink + uid;
+        FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLink(Uri.parse(link))
+                .setDomainUriPrefix("https://example.page.link")
+                .setAndroidParameters(
+                        new DynamicLink.AndroidParameters.Builder("com.example.android")
+                                .setMinimumVersion(125)
+                                .build())
+                .setIosParameters(
+                        new DynamicLink.IosParameters.Builder("com.example.ios")
+                                .setAppStoreId("123456789")
+                                .setMinimumVersion("1.0.1")
+                                .build())
+                .buildShortDynamicLink()
+                .addOnSuccessListener(new OnSuccessListener<ShortDynamicLink>() {
+                    @Override
+                    public void onSuccess(ShortDynamicLink shortDynamicLink) {
+                       mInvitationUrl = shortDynamicLink.getShortLink();
+                        // ...
+                    }
+                });
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setType("text/plain");
+        String body = "Use my link for download cash coin & get 100 cash coin for free bonus!";
+        String sub = "";
+        intent.putExtra(Intent.EXTRA_TEXT,body);
+        intent.putExtra(Intent.EXTRA_TEXT,sub);
+        startActivity(Intent.createChooser(intent,"Share using"));
     }
 
 

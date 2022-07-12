@@ -1,4 +1,4 @@
-package com.bluesoftit.cashcoin;
+package com.bluesoftit.cashcoin.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
+
+import com.bluesoftit.cashcoin.R;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -17,6 +19,8 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
 
         progressBar =findViewById(R.id.progressBar);
 
@@ -36,6 +40,8 @@ public class SplashActivity extends AppCompatActivity {
         startActivity(new Intent(SplashActivity.this,LoginActivity.class));
         finish();
     }
+
+    
 
     private void doWork() {
         for (setProgress=20;setProgress<=100;setProgress=setProgress+20){

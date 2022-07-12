@@ -1,4 +1,4 @@
-package com.bluesoftit.cashcoin;
+package com.bluesoftit.cashcoin.Models;
 
 import com.google.firebase.firestore.ServerTimestamp;
 

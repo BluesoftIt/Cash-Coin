@@ -1,4 +1,4 @@
-package com.bluesoftit.cashcoin;
+package com.bluesoftit.cashcoin.Fragments;
 
 import android.os.Bundle;
 
@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bluesoftit.cashcoin.Models.User;
+import com.bluesoftit.cashcoin.R;
+import com.bluesoftit.cashcoin.Models.WithdrawRequest;
 import com.bluesoftit.cashcoin.databinding.FragmentWalletBinding;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
@@ -36,6 +39,7 @@ public class WalletFragment extends Fragment {
 
     FragmentWalletBinding binding;
     FirebaseFirestore database;
+    FirebaseAuth auth;
     User user;
     String TAG = "myTag";
     InterstitialAd admobLocal;
@@ -46,6 +50,7 @@ public class WalletFragment extends Fragment {
 
         binding = FragmentWalletBinding.inflate(inflater, container, false);
         database = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         showAdmobLocalAd();
 
@@ -91,12 +96,13 @@ public class WalletFragment extends Fragment {
     }
     private void getCoinData() {
         database.collection("users")
-                .document(FirebaseAuth.getInstance().getUid())
+                .document(auth.getUid())
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 user = documentSnapshot.toObject(User.class);
-                binding.currentCoins.setText(String.valueOf(user.getCoins()));
+                String cc = " CC";
+                binding.currentCoins.setText(String.valueOf(user.getCoins()+cc));
 
 
             }
