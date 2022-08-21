@@ -51,7 +51,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         final CategoryModel model = categoryModels.get(position);
 
-        showInterstitialAd2();
+      //  showInterstitialAd2();
 
         holder.textView.setText(model.getCategoryName());
         Glide.with(context)
@@ -61,7 +61,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(interstitialAd2!=null){
+               /* if(interstitialAd2!=null){
                     interstitialAd2.show((Activity) context);
                     interstitialAd2.setFullScreenContentCallback(new FullScreenContentCallback() {
                         @Override
@@ -79,9 +79,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                             context.startActivity(intent);
                         }
                     });
-                }else {
-                    Toast.makeText(context, "No Quiz Available for this day.", Toast.LENGTH_SHORT).show();
-                }
+                }*/
+              //  else {
+
+                    Toast.makeText(context, "Our Quiz system is banned. Please wait we notify you when it is available.", Toast.LENGTH_SHORT).show();
+              //  }
             }
         });
     }

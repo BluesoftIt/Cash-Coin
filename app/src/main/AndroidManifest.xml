@@ -4,7 +4,9 @@
     package="com.bluesoftit.cashcoin">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" tools:node="remove"/>
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission
         android:name="android.permission.POST_NOTIFICATIONS"
         tools:node="remove" />
@@ -19,13 +21,17 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".Activity.DigitalStore"
+            android:name=".Activity.CategoriesProducts"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".Activity.DigitalStore"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Activity.SplashActivity"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,7 +56,11 @@
         <activity
             android:name=".Activity.MainActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ProductDetails"
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -58,6 +68,8 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_app_id" />
+        <meta-data android:name="com.startapp.sdk.APPLICATION_ID" android:value="206986480" />
+        <meta-data android:name="com.startapp.sdk.RETURN_ADS_ENABLED" android:value="false" />
     </application>
 
 </manifest>

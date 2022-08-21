@@ -44,7 +44,7 @@ public class WithdrawRequest {
         this.requestedBy = requestedBy;
     }
 
-    public long getWithdrawAmmount() {
+    public double getWithdrawAmmount() {
         return withdrawAmmount;
     }
 

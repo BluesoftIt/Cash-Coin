@@ -1,18 +1,18 @@
 package com.bluesoftit.cashcoin.Models;
 
 public class User {
-    private String name, email, pass,profile, referCode, myRefer,userId;
+    private String name, email, pass,profile, referedBy, referCode,userId;
     private long coins = 25;
 
     public User() {
     }
 
-    public User(String name, String email, String pass, String referCode, String myRefer, String userId) {
+    public User(String name, String email, String pass, String referedBy, String referCode, String userId) {
         this.name = name;
         this.email = email;
         this.pass = pass;
-        this.referCode = referCode;
-        this.myRefer=myRefer;
+        this.referedBy = referedBy;
+        this.referCode=referCode;
         this.userId=userId;
     }
 
@@ -40,16 +40,16 @@ public class User {
         this.pass = pass;
     }
 
-    public String getReferCode() {
-        return referCode;
+    public String getReferedBy() {
+        return referedBy;
     }
 
-    public void setReferCode(String referCode) {
-        this.referCode = referCode;
+    public void setReferedBy(String referedBy) {
+        this.referedBy = referedBy;
     }
 
-    public String getMyRefer(){return myRefer;}
-    public void setMyRefer(String myRefer){this.myRefer=myRefer;}
+    public String getReferCode(){return referCode;}
+    public void setReferCode(String referCode){this.referCode=referCode;}
 
     //--------->>>>>>
     public String getUserId(){return userId;}

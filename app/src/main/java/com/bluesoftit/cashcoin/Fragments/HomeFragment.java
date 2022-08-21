@@ -16,8 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bluesoftit.cashcoin.Activity.MainActivity;
 import com.bluesoftit.cashcoin.Adapters.CategoryAdapter;
 import com.bluesoftit.cashcoin.Models.CategoryModel;
+import com.bluesoftit.cashcoin.Models.User;
 import com.bluesoftit.cashcoin.R;
 import com.bluesoftit.cashcoin.Activity.SpinnerActivity;
 import com.bluesoftit.cashcoin.databinding.FragmentHomeBinding;
@@ -47,11 +49,16 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.startapp.sdk.adsbase.StartAppAd;
+import com.startapp.sdk.adsbase.StartAppSDK;
+import com.startapp.sdk.adsbase.adlisteners.AdDisplayListener;
+import com.startapp.sdk.adsbase.adlisteners.VideoListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
-public class HomeFragment extends Fragment implements OnUserEarnedRewardListener {
+public class HomeFragment extends Fragment {
 
 
     public HomeFragment() {
@@ -71,11 +78,11 @@ public class HomeFragment extends Fragment implements OnUserEarnedRewardListener
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     InterstitialAd interstitialAd;
+    FirebaseAuth auth;
+    StartAppAd startAppAd;
+    StartAppAd startAppAd2;
     String TAG = "my tag";
-    String companyLink = "https://bluesoftit.blogspot.com/?invitedby=";
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    Uri mInvitationUrl;
-
+    User users;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,8 +92,15 @@ public class HomeFragment extends Fragment implements OnUserEarnedRewardListener
 
         database = FirebaseFirestore.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
         databaseReference= firebaseDatabase.getReference("notice");
-        showInterstitialAd();
+       // showInterstitialAd();
+        StartAppSDK.init(getContext(),"206986480",false);
+        startAppAd = new StartAppAd(getContext());
+        startAppAd.loadAd(StartAppAd.AdMode.REWARDED_VIDEO);
+        startAppAd2 = new StartAppAd(getContext());
+        startAppAd2.loadAd(StartAppAd.AdMode.AUTOMATIC);
+
 
         final ArrayList<CategoryModel> categories = new ArrayList<>();
 
@@ -115,7 +129,7 @@ public class HomeFragment extends Fragment implements OnUserEarnedRewardListener
         binding.spinwheel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (interstitialAd != null) {
+              /*  if (interstitialAd != null) {
                     interstitialAd.show(getActivity());
                     interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                         @Override
@@ -124,7 +138,11 @@ public class HomeFragment extends Fragment implements OnUserEarnedRewardListener
                             startActivity(new Intent(getContext(), SpinnerActivity.class));
                         }
                     });
-                } else {
+                }*/
+                if (startAppAd2.isReady()){
+                    startAppAd2.showAd();
+                    startActivity(new Intent(getContext(),SpinnerActivity.class));
+            }else {
                     Toast.makeText(getContext(), "Your Spin limit is over. Try later", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -132,9 +150,22 @@ public class HomeFragment extends Fragment implements OnUserEarnedRewardListener
         binding.showAds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadAd();
+                if (startAppAd.isReady()){
+                    startAppAd.showAd();
+                }
             }
         });
+        startAppAd.setVideoListener(new VideoListener() {
+            @Override
+            public void onVideoCompleted() {
+                // Grant user with the reward
+                database.collection("users")
+                        .document(auth.getUid())
+                        .update("coins", FieldValue.increment(+5));
+                Toast.makeText(getContext(), "You earned 5 CC", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         binding.textView12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,6 +188,7 @@ public class HomeFragment extends Fragment implements OnUserEarnedRewardListener
                 Toast.makeText(getActivity(), ""+error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
 
         // Inflate the layout for this fragment
         return binding.getRoot();
@@ -184,64 +216,27 @@ public class HomeFragment extends Fragment implements OnUserEarnedRewardListener
                 });
     }
 
-    private void loadAd() {
-        // Use the test ad unit ID to load an ad.
-        RewardedInterstitialAd.load(getContext(), getString(R.string.admob_rewards),
-                new AdRequest.Builder().build(),  new RewardedInterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(RewardedInterstitialAd ad) {
-                        super.onAdLoaded(ad);
-                        ad.show(getActivity(),HomeFragment.this);
-
-                    }
-                    @Override
-                    public void onAdFailedToLoad(LoadAdError loadAdError) {
-                        super.onAdFailedToLoad(loadAdError);
-                        Toast.makeText(getContext(), "No ads available right now!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
 
     private void generateReferLink(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-        String link = companyLink + uid;
-        FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse(link))
-                .setDomainUriPrefix("https://example.page.link")
-                .setAndroidParameters(
-                        new DynamicLink.AndroidParameters.Builder("com.example.android")
-                                .setMinimumVersion(125)
-                                .build())
-                .setIosParameters(
-                        new DynamicLink.IosParameters.Builder("com.example.ios")
-                                .setAppStoreId("123456789")
-                                .setMinimumVersion("1.0.1")
-                                .build())
-                .buildShortDynamicLink()
-                .addOnSuccessListener(new OnSuccessListener<ShortDynamicLink>() {
+        database.collection("users")
+                .document(auth.getUid())
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
-                    public void onSuccess(ShortDynamicLink shortDynamicLink) {
-                       mInvitationUrl = shortDynamicLink.getShortLink();
-                        // ...
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        users = documentSnapshot.toObject(User.class);
+                        String referCode = users.getReferCode();
+
+                        Intent intent = new Intent(Intent.ACTION_SENDTO);
+                        intent.setType("text/plain");
+                        String body = "Use my refer code "+referCode+" and download cash coin & get 100 cash coin for free bonus!";
+                        String sub = "";
+                        intent.putExtra(Intent.EXTRA_TEXT,body);
+                        intent.putExtra(Intent.EXTRA_TEXT,sub);
+                        startActivity(Intent.createChooser(intent,"Share using"));
+
+
                     }
                 });
 
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setType("text/plain");
-        String body = "Use my link for download cash coin & get 100 cash coin for free bonus!";
-        String sub = "";
-        intent.putExtra(Intent.EXTRA_TEXT,body);
-        intent.putExtra(Intent.EXTRA_TEXT,sub);
-        startActivity(Intent.createChooser(intent,"Share using"));
-    }
-
-
-    @Override
-    public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
-        database.collection("users")
-                .document(FirebaseAuth.getInstance().getUid())
-                .update("coins", FieldValue.increment(+10));
-        Toast.makeText(getContext(), "Congratulation! You earned 10 Play Cash Coin.", Toast.LENGTH_SHORT).show();
     }
 }

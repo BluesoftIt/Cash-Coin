@@ -40,6 +40,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.startapp.sdk.adsbase.StartAppAd;
+import com.startapp.sdk.adsbase.StartAppSDK;
+import com.startapp.sdk.adsbase.adlisteners.VideoListener;
 
 
 import me.ibrahimsn.lib.OnItemSelectedListener;
@@ -51,8 +56,10 @@ public class MainActivity extends AppCompatActivity {
     InterstitialAd interstitialAd;
     InterstitialAd admobLocal;
     FirebaseAuth auth;
+    FirebaseFirestore database;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    StartAppAd startAppAd;
     private long backPressedTime;
     Toast backToast;
 
@@ -63,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    MobileAds.initialize(MainActivity.this, new OnInitializationCompleteListener() {
+        MobileAds.initialize(MainActivity.this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
 
@@ -72,8 +79,13 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference= firebaseDatabase.getReference("instruction");
-        showInterstitialAd();
-        showAdmobLocalAd();
+        database = FirebaseFirestore.getInstance();
+        StartAppSDK.init(this,"206986480",false);
+        startAppAd = new StartAppAd(this);
+        startAppAd.loadAd(StartAppAd.AdMode.AUTOMATIC);
+      //  showInterstitialAd();
+    //    showAdmobLocalAd();
+
 
         //Initialize Connectivity ---------->>>>>>
         ConnectivityManager connectivityManager = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -132,8 +144,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.wallet) {
             startActivity(new Intent(getApplicationContext(),DigitalStore.class));
-            if (admobLocal != null) {
+           /* if (admobLocal != null) {
                 admobLocal.show(MainActivity.this);
+            }*/
+            if (startAppAd.isReady()){
+                startAppAd.showAd();
             }
         }
         return super.onOptionsItemSelected(item);
@@ -235,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
             return;
         }else {
-            if (admobLocal!=null){
+          /*  if (admobLocal!=null){
                 admobLocal.show(MainActivity.this);
                 admobLocal.setFullScreenContentCallback(new FullScreenContentCallback() {
                     @Override
@@ -244,7 +259,10 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Press back again to exit.", Toast.LENGTH_SHORT).show();
                     }
                 });
-            }
+            }*/
+           if (startAppAd.isReady()){
+               StartAppAd.onBackPressed(this);
+           }
             backToast = Toast.makeText(MainActivity.this, "Press back again to exit.", Toast.LENGTH_SHORT);
             backToast.show();
         }

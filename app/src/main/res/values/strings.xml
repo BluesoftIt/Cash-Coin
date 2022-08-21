@@ -1,17 +1,15 @@
 <resources>
     <string name="app_name">Cash Coin</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="update_profile">Update Profile</string>
 
     <!--- Google Admob -->
-    <string name="admob_app_id">ca-app-pub-1397577307032558~5962560856</string>
+    <string name="admob_app_id">ca-app-pub-7409660035720485~6768519253</string>
     <string name="admob_rewards">ca-app-pub-1397577307032558/6700927451</string>
-    <string name="admob_rewards_test">ca-app-pub-3940256099942544/5354046379</string>
-    <string name="admob_interstitial">ca-app-pub-1397577307032558/1945625926</string>
-    <string name="admob_local">ca-app-pub-1397577307032558/3228037564</string>
-    <string name="admob_interstitial2">ca-app-pub-1397577307032558/3459686446</string>
-    <string name="admob_interstitial_test">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="admob_interstitial">ca-app-pub-7409660035720485/2254559176</string>
+    <string name="admob_local">ca-app-pub-7409660035720485/9107510629</string>
+    <string name="admob_interstitial2">ca-app-pub-7409660035720485/7000222031</string>
 
     <string name="onSignalAppId">a6bdf66c-7205-4ee3-a5e5-6c671c2ae544</string>
 

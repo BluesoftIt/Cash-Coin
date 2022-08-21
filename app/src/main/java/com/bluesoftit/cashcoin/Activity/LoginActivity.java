@@ -10,17 +10,28 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.bluesoftit.cashcoin.Fragments.WalletFragment;
 import com.bluesoftit.cashcoin.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity {
 
     ActivityLoginBinding binding;
-    FirebaseAuth auth;
     ProgressDialog dialog;
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,38 +40,32 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        auth = FirebaseAuth.getInstance();
-
         dialog = new ProgressDialog(this);
         dialog.setMessage("Logging in...");
-
-        if(auth.getCurrentUser() != null) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
-        }
+        auth = FirebaseAuth.getInstance();
 
         binding.submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.show();
+                dialog.setCanceledOnTouchOutside(false);
                 String email, pass;
-                email = binding.emailBox.getText().toString();
-                pass = binding.passwordBox.getText().toString();
-
+                email = binding.emailBox.getText().toString().trim();
+                pass = binding.passwordBox.getText().toString().trim();
                 if (email.isEmpty()||pass.isEmpty()){
+                    dialog.dismiss();
                     Toast.makeText(LoginActivity.this, "PLease check your email and password.", Toast.LENGTH_SHORT).show();
                 }else {
-                    dialog.show();
-                    dialog.setCanceledOnTouchOutside(false);
-
-                    auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    auth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            dialog.dismiss();
-                            if(task.isSuccessful()) {
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                finish();
-                            } else {
-                                Toast.makeText(LoginActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            if (task.isSuccessful()){
+                                Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                dialog.dismiss();
+                            }else {
+                                dialog.dismiss();
+                                Toast.makeText(LoginActivity.this, "There was some error!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -76,6 +81,14 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (FirebaseAuth.getInstance().getCurrentUser()!=null){
+            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+        }
     }
 
     @Override

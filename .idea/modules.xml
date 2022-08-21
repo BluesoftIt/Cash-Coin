@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Quiz_Me.iml" filepath="$PROJECT_DIR$/.idea/modules/Quiz_Me.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Quiz_Me.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Quiz_Me.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Quiz_Me.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Quiz_Me.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Quiz_Me.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Quiz_Me.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Quiz_Me.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Quiz_Me.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cash_Coin.iml" filepath="$PROJECT_DIR$/.idea/modules/Cash_Coin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Cash_Coin.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Cash_Coin.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Cash_Coin.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Cash_Coin.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Cash_Coin.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Cash_Coin.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Cash_Coin.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Cash_Coin.app.unitTest.iml" />
     </modules>
   </component>
 </project>

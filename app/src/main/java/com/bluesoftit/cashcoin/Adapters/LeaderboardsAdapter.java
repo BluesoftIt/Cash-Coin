@@ -40,9 +40,6 @@ public class LeaderboardsAdapter extends RecyclerView.Adapter<LeaderboardsAdapte
         holder.binding.coins.setText(String.valueOf(user.getCoins()));
         holder.binding.index.setText(String.format("#%d", position+1));
 
-        Glide.with(context)
-                .load(user.getProfile())
-                .into(holder.binding.imageView7);
     }
 
     @Override

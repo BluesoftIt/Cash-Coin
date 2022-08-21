@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:background="@color/colorPrimary"
+    android:layout_height="match_parent"
+    tools:context=".Activity.ProductDetails">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:background="@color/black_transparent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/pImg"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/placeholder_image" />
+
+            <TextView
+                android:id="@+id/pName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product Name"
+                android:textColor="@color/colorAccent"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_marginTop="5dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/pImg"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="@+id/pImg"
+                app:layout_constraintTop_toBottomOf="@+id/pImg" />
+
+            <TextView
+                android:id="@+id/pBrif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/color_white"
+                android:text="In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available."
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pName" />
+
+            <TextView
+                android:id="@+id/pPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price: 550 CC"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/details" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <EditText
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:ems="10"
+        android:padding="10dp"
+        android:textColor="@color/color_white"
+        android:textSize="14sp"
+        android:elevation="3dp"
+        android:textColorHint="@color/ash"
+        android:layout_marginTop="40dp"
+        android:hint="Tell your information"
+        android:background="@drawable/edit_txt_bg"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_txt_bg"
+        android:padding="10dp"
+        android:textSize="14sp"
+        android:textColor="@color/color_white"
+        android:hint="Your Phone Number"
+        android:textColorHint="@color/ash"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info" />
+
+    <Button
+        android:id="@+id/confirmBtn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_2"
+        android:elevation="4dp"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Pay and Order"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/upCoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00"
+        android:textSize="19sp"
+        android:layout_margin="20dp"
+        android:textColor="@color/color_white"
+        app:layout_constraintEnd_toEndOf="@+id/phone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone" />
+</androidx.constraintlayout.widget.ConstraintLayout>

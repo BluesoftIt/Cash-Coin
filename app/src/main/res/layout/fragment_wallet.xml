@@ -47,7 +47,6 @@
         android:id="@+id/currentCoins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_bold"
         android:text="0"
         android:textColor="@color/colorAccent"
         android:textSize="46sp"
@@ -61,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_light"
-        android:text="5000 coins required to withdraw"
+        android:text="50000 CC required to withdraw"
         android:textColor="@color/colorAccent"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/currentCoins"
@@ -73,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_light"
-        android:text="200 Cash Coin = $1"
+        android:text="5000 CC = $1"
         android:textColor="@color/colorAccent"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/textView15"
@@ -185,6 +184,32 @@
                 app:layout_constraintEnd_toEndOf="@id/withdrawMethode"
                 app:layout_constraintStart_toStartOf="@id/withdrawMethode"
                 app:layout_constraintTop_toBottomOf="@id/paymentInstruction" />
+
+            <TextView
+                android:id="@+id/referCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/sendRequest"
+                app:layout_constraintTop_toBottomOf="@+id/sendRequest" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/color_white"
+                android:fontFamily="@font/roboto_light"
+                android:text="Share this code to your friend and earn 50 CC if they create account via using this link."
+                app:layout_constraintEnd_toEndOf="@+id/referCode"
+                app:layout_constraintStart_toStartOf="@+id/referCode"
+                app:layout_constraintTop_toBottomOf="@+id/referCode" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

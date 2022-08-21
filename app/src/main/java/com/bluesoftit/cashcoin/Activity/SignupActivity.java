@@ -3,16 +3,26 @@ package com.bluesoftit.cashcoin.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bluesoftit.cashcoin.Models.User;
 import com.bluesoftit.cashcoin.databinding.ActivitySignupBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,13 +33,21 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
+
 public class SignupActivity extends AppCompatActivity {
 
     ActivitySignupBinding binding;
-    FirebaseAuth auth;
-    FirebaseFirestore database;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
     ProgressDialog dialog;
-    String email, pass, name, referCode, myRefer, userId;
+    String email, pass, name, referedBy, referCode, userId;
+    String url = "http://admin.digitalstore.bluesoftit.xyz/myApi/register.php";
+    FirebaseFirestore database = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +56,8 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        auth = FirebaseAuth.getInstance();
-        database = FirebaseFirestore.getInstance();
-
         dialog = new ProgressDialog(this);
         dialog.setMessage("We're creating new account...");
-
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,8 +69,10 @@ public class SignupActivity extends AppCompatActivity {
         binding.createNewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
                 dialog.setCanceledOnTouchOutside(false);
+                dialog.setTitle("Creating");
+                dialog.setMessage("We are creating your account");
+                dialog.show();
                 createAccount();
 
             }
@@ -69,13 +85,13 @@ public class SignupActivity extends AppCompatActivity {
         email = binding.emailBox.getText().toString();
         pass = binding.passwordBox.getText().toString();
         name = binding.nameBox.getText().toString();
-        referCode = binding.referBox.getText().toString();
+        referedBy = binding.referBox.getText().toString();
 
-        if (email.isEmpty() || pass.isEmpty() || name.isEmpty() || referCode.isEmpty()) {
+        if (email.isEmpty() || pass.isEmpty() || name.isEmpty() || referedBy.isEmpty()) {
             Toast.makeText(SignupActivity.this, "Please fill all the information correctly.", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         } else {
-            Query query = database.collection("users").whereEqualTo("myRefer", referCode);
+            Query query = database.collection("users").whereEqualTo("referCode", referedBy);
             query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -89,9 +105,9 @@ public class SignupActivity extends AppCompatActivity {
                                         if (task.isSuccessful()) {
                                             String uid = task.getResult().getUser().getUid();
                                             String tempRefer = String.valueOf(uid.getBytes());
-                                            myRefer = tempRefer.substring(2);
+                                            referCode = tempRefer.substring(2);
                                             userId = uid;
-                                            final User user = new User(name, email, pass, referCode, myRefer, userId);
+                                            final User user = new User(name, email, pass, referedBy, referCode, userId);
                                             database
                                                     .collection("users")
                                                     .document(uid)
@@ -137,6 +153,4 @@ public class SignupActivity extends AppCompatActivity {
             });
         }
     }
-
-
 }

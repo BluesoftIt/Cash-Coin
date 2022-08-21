@@ -8,6 +8,7 @@ import android.view.WindowManager;
 import android.widget.ProgressBar;
 
 import com.bluesoftit.cashcoin.R;
+import com.startapp.sdk.adsbase.StartAppAd;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -21,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
-
+        StartAppAd.disableSplash();
         progressBar =findViewById(R.id.progressBar);
 
         Thread thread = new Thread(new Runnable() {
